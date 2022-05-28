@@ -284,6 +284,12 @@ func resourceStorageAccount() *pluginsdk.Resource {
 				Default:  true,
 			},
 
+			"public_network_access_enabled": {
+				Type:     pluginsdk.TypeBool,
+				Optional: true,
+				Default:  true,
+			},
+
 			"shared_access_key_enabled": {
 				Type:     pluginsdk.TypeBool,
 				Optional: true,
@@ -1065,6 +1071,14 @@ func resourceStorageAccountCreate(d *pluginsdk.ResourceData, meta interface{}) e
 		}
 	}
 
+	// nolint staticcheck
+	if v, ok := d.GetOkExists("public_network_access_enabled"); ok {
+		parameters.PublicNetworkAccess = storage.PublicNetworkAccessEnabled
+		if !v.(bool) {
+			parameters.PublicNetworkAccess = storage.PublicNetworkAccessDisabled
+		}
+	}
+
 	if v, ok := d.GetOk("routing"); ok {
 		parameters.RoutingPreference = expandArmStorageAccountRouting(v.([]interface{}))
 	}
@@ -1507,6 +1521,22 @@ func resourceStorageAccountUpdate(d *pluginsdk.ResourceData, meta interface{}) e
 		}
 	}
 
+	if d.HasChange("public_network_access_enabled") {
+		isEnabled := storage.PublicNetworkAccessDisabled
+		if v := d.Get("public_network_access_enabled").(bool); v {
+			isEnabled = storage.PublicNetworkAccessEnabled
+		}
+		opts := storage.AccountUpdateParameters{
+			AccountPropertiesUpdateParameters: &storage.AccountPropertiesUpdateParameters{
+				PublicNetworkAccess: isEnabled,
+			},
+		}
+
+		if _, err := client.Update(ctx, id.ResourceGroup, id.Name, opts); err != nil {
+			return fmt.Errorf("updating Azure Storage Account public_network_access_enabled %q: %+v", id.Name, err)
+		}
+	}
+
 	if d.HasChange("routing") {
 		opts := storage.AccountUpdateParameters{
 			AccountPropertiesUpdateParameters: &storage.AccountPropertiesUpdateParameters{
@@ -1805,6 +1835,10 @@ func resourceStorageAccountRead(d *pluginsdk.ResourceData, meta interface{}) err
 
 		if props.LargeFileSharesState != "" {
 			d.Set("large_file_share_enabled", props.LargeFileSharesState == storage.LargeFileSharesStateEnabled)
+		}
+
+		if props.PublicNetworkAccess != "" {
+			d.Set("public_network_access_enabled", props.PublicNetworkAccess == storage.PublicNetworkAccessEnabled)
 		}
 
 		allowSharedKeyAccess := true

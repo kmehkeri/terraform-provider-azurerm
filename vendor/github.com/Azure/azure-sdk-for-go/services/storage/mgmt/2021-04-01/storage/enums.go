@@ -922,3 +922,13 @@ const (
 func PossibleUsageUnitValues() []UsageUnit {
 	return []UsageUnit{UsageUnitBytes, UsageUnitBytesPerSecond, UsageUnitCount, UsageUnitCountsPerSecond, UsageUnitPercent, UsageUnitSeconds}
 }
+
+// PublicNetworkAccess enumerates the values for whether public network access is enabled.
+type PublicNetworkAccess string
+
+const (
+	// PublicNetworkAccessDisabled ...
+	PublicNetworkAccessDisabled PublicNetworkAccess = "Disabled"
+	// PublicNetworkAccessEnabled ...
+	PublicNetworkAccessEnabled PublicNetworkAccess = "Enabled"
+)

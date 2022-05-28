@@ -605,6 +605,8 @@ type AccountProperties struct {
 	BlobRestoreStatus *BlobRestoreStatus `json:"blobRestoreStatus,omitempty"`
 	// AllowBlobPublicAccess - Allow or disallow public access to all blobs or containers in the storage account. The default interpretation is true for this property.
 	AllowBlobPublicAccess *bool `json:"allowBlobPublicAccess,omitempty"`
+	// PublicNetworkAccess - Allow or disallow public network access to Storage Account. Value is optional, but if passed in, must be 'Enabled' or 'Disabled'
+	PublicNetworkAccess PublicNetworkAccess `json:"publicNetworkAccess,omitempty"`
 	// MinimumTLSVersion - Set the minimum TLS version to be permitted on requests to storage. The default interpretation is TLS 1.0 for this property. Possible values include: 'MinimumTLSVersionTLS10', 'MinimumTLSVersionTLS11', 'MinimumTLSVersionTLS12'
 	MinimumTLSVersion MinimumTLSVersion `json:"minimumTlsVersion,omitempty"`
 	// AllowSharedKeyAccess - Indicates whether the storage account permits requests to be authorized with the account access key via Shared Key. If false, then all requests, including shared access signatures, must be authorized with Azure Active Directory (Azure AD). The default value is null, which is equivalent to true.
@@ -677,6 +679,8 @@ type AccountPropertiesCreateParameters struct {
 	RoutingPreference *RoutingPreference `json:"routingPreference,omitempty"`
 	// AllowBlobPublicAccess - Allow or disallow public access to all blobs or containers in the storage account. The default interpretation is true for this property.
 	AllowBlobPublicAccess *bool `json:"allowBlobPublicAccess,omitempty"`
+	// PublicNetworkAccess - Allow or disallow public network access to Storage Account. Value is optional, but if passed in, must be 'Enabled' or 'Disabled'
+	PublicNetworkAccess PublicNetworkAccess `json:"publicNetworkAccess,omitempty"`
 	// MinimumTLSVersion - Set the minimum TLS version to be permitted on requests to storage. The default interpretation is TLS 1.0 for this property. Possible values include: 'MinimumTLSVersionTLS10', 'MinimumTLSVersionTLS11', 'MinimumTLSVersionTLS12'
 	MinimumTLSVersion MinimumTLSVersion `json:"minimumTlsVersion,omitempty"`
 	// AllowSharedKeyAccess - Indicates whether the storage account permits requests to be authorized with the account access key via Shared Key. If false, then all requests, including shared access signatures, must be authorized with Azure Active Directory (Azure AD). The default value is null, which is equivalent to true.
@@ -711,6 +715,8 @@ type AccountPropertiesUpdateParameters struct {
 	RoutingPreference *RoutingPreference `json:"routingPreference,omitempty"`
 	// AllowBlobPublicAccess - Allow or disallow public access to all blobs or containers in the storage account. The default interpretation is true for this property.
 	AllowBlobPublicAccess *bool `json:"allowBlobPublicAccess,omitempty"`
+	// PublicNetworkAccess - Allow or disallow public network access to Storage Account. Value is optional, but if passed in, must be 'Enabled' or 'Disabled'
+	PublicNetworkAccess PublicNetworkAccess `json:"publicNetworkAccess,omitempty"`
 	// MinimumTLSVersion - Set the minimum TLS version to be permitted on requests to storage. The default interpretation is TLS 1.0 for this property. Possible values include: 'MinimumTLSVersionTLS10', 'MinimumTLSVersionTLS11', 'MinimumTLSVersionTLS12'
 	MinimumTLSVersion MinimumTLSVersion `json:"minimumTlsVersion,omitempty"`
 	// AllowSharedKeyAccess - Indicates whether the storage account permits requests to be authorized with the account access key via Shared Key. If false, then all requests, including shared access signatures, must be authorized with Azure Active Directory (Azure AD). The default value is null, which is equivalent to true.
